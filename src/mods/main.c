@@ -32,3 +32,33 @@ char* removerEspaco(char* input)
     output[j]=0;
     return output;
 }
+
+int tabela (char simbolo_empe[1], char simbolo_deitado[1])
+{
+    // Converter
+    // X || x para *
+
+    int index_empe, index_deitado;
+
+    /*
+        Dicionário de dados
+        ( = 0
+        ^ = 1
+        * = 2
+        / = 3
+        + = 4
+        - = 5
+        ) = 6
+    */
+int tabeladesequencia[7][7];
+tabeladesequencia = {
+    {0,0,0,0,0,0,1},
+    {0,0,1,1,1,1,1},
+    {0,0,1,1,1,1,1},
+    {0,0,1,1,1,1,1},
+    {0,0,0,0,1,1,1},
+    {0,0,0,0,1,1,1},
+    {0,0,0,0,0,0,0},
+};
+    return tabeladesequencia[]
+}
