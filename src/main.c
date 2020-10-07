@@ -15,6 +15,7 @@ Renato Donizeti da Silva Junior 20014023
 #include <conio.h>
 #include <string.h>
 #include <assert.h>
+#include <ctype.h>
 #include "./mods/main.c"
 #define T 1024
 
@@ -29,25 +30,57 @@ int main()
     gets(expressao);
 
     // Limpar espaços
-    expressao = removerEspaco(expressao);
+    removerEspaco(expressao);
 
-    // Empe array n
-    int EmPe[T];
+    int EmPe[T]; // Empe array n
+    int Deitado[T]; // Deitado array n
+    int PosEmPe = -1; // PosEmPe int -1
+    int PosDeitado = -1; // PosDeitado int -1
+    int atual; // atual int
+    char pedaco[T] = ""; // Pedaco
 
-    // Deitado array n
-    int Deitado[T];
+    // Separar os pedaços
+    // c = "10+(2*3-4)^2/4+6*2";
 
-    // PosEmPe int -1
-    int PosEmPe = -1;
+    for (size_t i = 0;(i < strlen(expressao) && expressao[i] != '\0'); i++)
+    {
 
-    // PosDeitado int -1
-    int PosDeitado = -1;
+        if(expressao[i+1] == '\0')
+        { // Se for no final
 
-    // atual int
-    int atual;
+        }
+        else
+        { // Se não for o final
+            if(verificarNumero(expressao[i+1]) == 1)
+            { // Adicionar ao pedaço
+                pedaco[strlen(pedaco)] = expressao[i];
+            }
+            else if(verificarNumero(expressao[i]))
+            { // Executar operação quando o caracter atual for numero
+                pedaco[strlen(pedaco)] = expressao[i];
+                pedaco[strlen(pedaco)] = '\0';
+                printf("==> %s\n", pedaco);
 
-    // Pedaco
-    char pedaco;
+                // Operação com número
+                // Mandar limpar pedaço
+            }
+            else
+            { // Quando o caracter atual for um sinal
+                pedaco[strlen(pedaco)] = expressao[i];
+                pedaco[strlen(pedaco)] = '\0';
+                printf("==> %s\n", pedaco);
+
+                // Operação com sinal
+                // Mandar limpar pedaço
+            }
+
+        }
+
+        // Se for para limpar o pedaço, então que o limpe!
+    }
+    // strcpy(pedaco, ""); // Limpar
+
+
 
     return 0;
 }

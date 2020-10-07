@@ -1,4 +1,6 @@
-int operacao_impossivel(){
+
+int operacaoImpossivel()
+{
     system("cls");
     printf("- Não é possível concluir esta operação!");
     system("pause");
@@ -6,7 +8,7 @@ int operacao_impossivel(){
     return 0;
 }
 
-double** novamatriz (unsigned int quantidade_de_linhas, unsigned int quantidade_de_colunas)
+double** novaMatriz (unsigned int quantidade_de_linhas, unsigned int quantidade_de_colunas)
 {
     double** ret = (double**)malloc(quantidade_de_linhas*sizeof(double*));
 
@@ -18,47 +20,85 @@ double** novamatriz (unsigned int quantidade_de_linhas, unsigned int quantidade_
     return ret;
 }
 
-char* removerEspaco(char* input)
+void removerEspaco(char *str)
 {
-    int i,j;
-    char *output=input;
-    for (i = 0, j = 0; i<strlen(input); i++,j++)
-    {
-        if (input[i]!=' ')
-            output[j]=input[i];
-        else
-            j--;
-    }
-    output[j]=0;
-    return output;
+
+    int count = 0;
+    for (int i = 0; str[i]; i++)
+        if (str[i] != ' ')
+            str[count++] = str[i]; 
+    str[count] = '\0';
 }
 
-int tabela (char simbolo_empe[1], char simbolo_deitado[1])
+int verificarNumero(char caracter)
 {
-    // Converter
-    // X || x para *
+    if (caracter >= '0' && caracter <= '9')
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int tabela (char simbolo_empe, char simbolo_deitado)
+{
 
     int index_empe, index_deitado;
 
-    /*
-        Dicionário de dados
-        ( = 0
-        ^ = 1
-        * = 2
-        / = 3
-        + = 4
-        - = 5
-        ) = 6
-    */
-int tabeladesequencia[7][7];
-tabeladesequencia = {
-    {0,0,0,0,0,0,1},
-    {0,0,1,1,1,1,1},
-    {0,0,1,1,1,1,1},
-    {0,0,1,1,1,1,1},
-    {0,0,0,0,1,1,1},
-    {0,0,0,0,1,1,1},
-    {0,0,0,0,0,0,0},
-};
-    return tabeladesequencia[]
+    switch (simbolo_deitado) {
+        case '(':
+            index_deitado = 0;
+            break;
+        case '^':
+            index_deitado = 1;
+            break;
+        case '*':
+        case 'x':
+        case 'X':
+            index_deitado = 2;
+            break;
+        case '/':
+            index_deitado = 3;
+            break;
+        case '+':
+            index_deitado = 4;
+            break;
+        case '-':
+            index_deitado = 5;
+            break;
+        case ')':
+            index_deitado = 6;
+            break;
+    }
+
+    switch (simbolo_empe) {
+        case '(':
+            index_empe = 0;
+            break;
+        case '^':
+            index_empe = 1;
+            break;
+        case '*':
+        case 'x':
+        case 'X':
+            index_empe = 2;
+            break;
+        case '/':
+            index_empe = 3;
+            break;
+        case '+':
+            index_empe = 4;
+            break;
+        case '-':
+            index_empe = 5;
+            break;
+        case ')':
+            index_empe = 6;
+            break;
+    }
+
+    int tabeladesequencia[7][7] =  {{0,0,0,0,0,0,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,0,0,0}};
+    return tabeladesequencia[index_empe][index_deitado];
 }
