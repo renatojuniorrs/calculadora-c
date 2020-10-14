@@ -26,7 +26,7 @@ void removerEspaco(char *str)
     int count = 0;
     for (int i = 0; str[i]; i++)
         if (str[i] != ' ')
-            str[count++] = str[i]; 
+            str[count++] = str[i];
     str[count] = '\0';
 }
 
@@ -101,4 +101,9 @@ int tabela (char simbolo_empe, char simbolo_deitado)
 
     int tabeladesequencia[7][7] =  {{0,0,0,0,0,0,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,0,0,0}};
     return tabeladesequencia[index_empe][index_deitado];
+}
+
+void limparString(char *str)
+{
+    memset(str,0,sizeof(str));
 }

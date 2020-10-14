@@ -32,10 +32,10 @@ int main()
     // Limpar espaços
     removerEspaco(expressao);
 
-    int EmPe[T]; // Empe array n
-    int Deitado[T]; // Deitado array n
-    int PosEmPe = -1; // PosEmPe int -1
-    int PosDeitado = -1; // PosDeitado int -1
+    char emPe[T]; // Empe array n
+    char deitado[T]; // Deitado array n
+    int posEmPe = -1; // PosEmPe int -1
+    int posDeitado = -1; // PosDeitado int -1
     int atual; // atual int
     char pedaco[T] = ""; // Pedaco
 
@@ -44,43 +44,42 @@ int main()
 
     for (size_t i = 0;(i < strlen(expressao) && expressao[i] != '\0'); i++)
     {
+        if(verificarNumero(expressao[i]) == 0)
+        { // Significa que não é número
+          pedaco[strlen(pedaco)] = expressao[i];
+          pedaco[strlen(pedaco)] = '\0';
+          printf("==> %s\n", pedaco);
 
-        if(expressao[i+1] == '\0')
-        { // Se for no final
+          // Operação com sinal
 
+          // Tempo 00:45 do vídeo da aula 1
+          // Verificar o simbolo por cima do vetor em pé
+          // Usar funcao tabela(emPe[posEmPe], pedeco) => Se pode tirar do vetor empé
+          // Se verdade, pode-se tirar do vetor empé, e adicionar ao deitado
+
+          posEmPe++;
+          emPe[posEmPe] = pedaco;
+          // Mandar limpar pedaço
+          limparString(pedaco);
         }
-        else
-        { // Se não for o final
-            if(verificarNumero(expressao[i+1]) == 1)
-            { // Adicionar ao pedaço
-                pedaco[strlen(pedaco)] = expressao[i];
-            }
-            else if(verificarNumero(expressao[i]))
-            { // Executar operação quando o caracter atual for numero
-                pedaco[strlen(pedaco)] = expressao[i];
-                pedaco[strlen(pedaco)] = '\0';
-                printf("==> %s\n", pedaco);
+        else if(verificarNumero(expressao[i+1]) == 1)
+        { // Adicionar ao pedaço, significa que ainda tem mais número
+          pedaco[strlen(pedaco)] = expressao[i];
+        }
+        else if(verificarNumero(expressao[i]))
+        { // Executar operação quando o caracter atual for numero
+          pedaco[strlen(pedaco)] = expressao[i];
+          pedaco[strlen(pedaco)] = '\0';
+          printf("==> %s\n", pedaco);
 
-                // Operação com número
-                // Mandar limpar pedaço
-            }
-            else
-            { // Quando o caracter atual for um sinal
-                pedaco[strlen(pedaco)] = expressao[i];
-                pedaco[strlen(pedaco)] = '\0';
-                printf("==> %s\n", pedaco);
-
-                // Operação com sinal
-                // Mandar limpar pedaço
-            }
-
+          // Operação com número
+          posDeitado++;
+          deitado[posDeitado] = pedaco;
+          // Mandar limpar pedaço
+          limparString(pedaco);
         }
 
-        // Se for para limpar o pedaço, então que o limpe!
     }
-    // strcpy(pedaco, ""); // Limpar
-
-
 
     return 0;
 }
