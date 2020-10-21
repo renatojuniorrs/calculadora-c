@@ -102,7 +102,10 @@ int tabela (char simbolo_empe, char simbolo_deitado)
     int tabeladesequencia[7][7] =  {{0,0,0,0,0,0,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,0,0,0}};
     return tabeladesequencia[index_empe][index_deitado];
 }
-
+void limparCaractere(char *str)
+{
+    str = '';
+}
 void limparString(char *str)
 {
     memset(str,0,sizeof(str));
