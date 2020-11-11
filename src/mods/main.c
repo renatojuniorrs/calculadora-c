@@ -104,7 +104,7 @@ int tabela (char simbolo_empe, char simbolo_deitado)
 }
 void limparCaractere(char *str)
 {
-    str = '';
+    str = '\0';
 }
 void limparString(char *str)
 {

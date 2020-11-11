@@ -25,15 +25,15 @@ int main()
     system("COLOR F0");
 
     // Entrada da expressão
-    char expressao[T];
-    printf("\n\n\t\tDigite a expressão = ");
-    gets(expressao);
+    char expressao[T] = "10+(2*3-4)^2/4+6*2";
+    // printf("\n\n\t\tDigite a expressão = ");
+    // gets(expressao);
 
     // Limpar espaços
     removerEspaco(expressao);
 
-    char emPe[T]; // Empe array n
-    char deitado[T]; // Deitado array n
+    char emPe[T][T]; // Empe array n
+    char deitado[T][T]; // Deitado array n
     int posEmPe = -1; // PosEmPe int -1
     int posDeitado = -1; // PosDeitado int -1
     int atual; // atual int
@@ -45,7 +45,7 @@ int main()
     for (size_t i = 0;(i < strlen(expressao) && expressao[i] != '\0'); i++)
     {
         if(verificarNumero(expressao[i]) == 0)
-        { // Significa que não é número
+        {   // Significa que não é número
             pedaco[strlen(pedaco)] = expressao[i];
             pedaco[strlen(pedaco)] = '\0';
             printf("==> %s\n", pedaco);
@@ -57,27 +57,32 @@ int main()
             // Usar funcao tabela(emPe[posEmPe], pedeco) => Se pode tirar do vetor empé
             // Se verdade, pode-se tirar do vetor empé, e adicionar ao deitado
 
-            if(posEmPe != -1)
+            if(posEmPe >= 0)
             {
-                resultadoTabela = tabela(emPe[posEmPe], pedaco); // Retorna 1 se verdadeiro ou 0 se falso
+                resultadoTabela = tabela(emPe[posEmPe][0], pedaco); // Retorna 1 se verdadeiro ou 0 se falso
+
                 if(resultadoTabela == 0)
                 {
                     posEmPe++;
-                    emPe[posEmPe] = pedaco;
+                    strcpy(emPe[posEmPe], pedaco);
                 }
                 else
                 {
                     // Laço de repetição com decremento ou função recursiva
                     // Enquanto for verdadeiro e existir posição
-                    for(posEmPe; tabela(emPe[posEmPe], pedaco) == 1 &&  posEmPe > -1; posEmPe--)
+                    for(posEmPe; tabela(emPe[posEmPe][0], pedaco) == 1 &&  posEmPe > -1; posEmPe--)
                     {
                         posDeitado++;
-                        deitado[posDeitado] = emPe[posEmPe];
+                        strcpy(deitado[posDeitado], emPe[posEmPe]);
                         limparCaractere(emPe[posEmPe]);
                     }
                 }
+            }else{
+                posEmPe++;
+                emPe[posEmPe] = pedaco;
             }
 
+            printf("[TABELA] =======> %d\n", resultadoTabela);
             // Mandar limpar pedaço
             limparString(pedaco);
         }
