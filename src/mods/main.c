@@ -32,7 +32,7 @@ void removerEspaco(char *str)
 
 int verificarNumero(char caracter)
 {
-    if (caracter >= '0' && caracter <= '9')
+    if (caracter >= '0' && caracter <= '9' && caracter != '\0')
     {
         return 1;
     }
@@ -101,8 +101,9 @@ int tabela (char simbolo_empe, char simbolo_deitado)
 
     int tabeladesequencia[7][7] =  {{0,0,0,0,0,0,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,0,0,0}};
     return tabeladesequencia[index_empe][index_deitado];
+    return 0;
 }
-void limparCaractere(char *str)
+void limparCaractere(char str)
 {
     str = '\0';
 }

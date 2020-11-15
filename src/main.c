@@ -21,11 +21,13 @@ Renato Donizeti da Silva Junior 20014023
 
 int main()
 {
+
     setlocale( LC_ALL, "" );
     system("COLOR F0");
 
     // Entrada da expressão
     char expressao[T] = "10+(2*3-4)^2/4+6*2";
+    // char expressao[T];
     // printf("\n\n\t\tDigite a expressão = ");
     // gets(expressao);
 
@@ -42,13 +44,14 @@ int main()
     // Separar os pedaços
     // c = "10+(2*3-4)^2/4+6*2";
 
-    for (size_t i = 0;(i < strlen(expressao) && expressao[i] != '\0'); i++)
+
+    for (size_t i = 0;(i <= expressao[i] != '\0'); i++)
     {
         if(verificarNumero(expressao[i]) == 0)
         {   // Significa que não é número
             pedaco[strlen(pedaco)] = expressao[i];
             pedaco[strlen(pedaco)] = '\0';
-            printf("==> %s\n", pedaco);
+
 
             // Operação com sinal
 
@@ -59,7 +62,8 @@ int main()
 
             if(posEmPe >= 0)
             {
-                resultadoTabela = tabela(emPe[posEmPe][0], pedaco); // Retorna 1 se verdadeiro ou 0 se falso
+
+                resultadoTabela = tabela(emPe[posEmPe][0], pedaco[0]); // Retorna 1 se verdadeiro ou 0 se falso
 
                 if(resultadoTabela == 0)
                 {
@@ -70,19 +74,34 @@ int main()
                 {
                     // Laço de repetição com decremento ou função recursiva
                     // Enquanto for verdadeiro e existir posição
-                    for(posEmPe; tabela(emPe[posEmPe][0], pedaco) == 1 &&  posEmPe > -1; posEmPe--)
-                    {
-                        posDeitado++;
-                        strcpy(deitado[posDeitado], emPe[posEmPe]);
-                        limparCaractere(emPe[posEmPe]);
+                    if(pedaco[0] == ')'){
+                        do {
+                            posDeitado++;
+                            strcpy(deitado[posDeitado], emPe[posEmPe]);
+                            limparCaractere(emPe[posEmPe][0]);
+                            posEmPe--;
+                        } while(emPe[posEmPe][0] != '(' && posEmPe >= 0);
+                        limparCaractere(emPe[posEmPe][0]);
+                        posEmPe--;
+                    }else{
+                        for(posEmPe;( tabela(emPe[posEmPe][0], pedaco[0]) == 1 &&  posEmPe >= -1); posEmPe--)
+                        {
+                            if(posEmPe != -1){
+                                posDeitado++;
+                                strcpy(deitado[posDeitado], emPe[posEmPe]);
+                                limparCaractere(emPe[posEmPe][0]);
+                            }
+                        }
+                        printf("%s\n", emPe[posEmPe]);
+                        posEmPe++;
+                        strcpy(emPe[posEmPe], pedaco);
                     }
                 }
             }else{
                 posEmPe++;
-                emPe[posEmPe] = pedaco;
+                strcpy(emPe[posEmPe], pedaco);
             }
 
-            printf("[TABELA] =======> %d\n", resultadoTabela);
             // Mandar limpar pedaço
             limparString(pedaco);
         }
@@ -94,15 +113,18 @@ int main()
         { // Executar operação quando o caracter atual for numero
             pedaco[strlen(pedaco)] = expressao[i];
             pedaco[strlen(pedaco)] = '\0';
-            printf("==> %s\n", pedaco);
 
             // Operação com número
             posDeitado++;
-            deitado[posDeitado] = pedaco;
+            strcpy(deitado[posDeitado], pedaco);
             // Mandar limpar pedaço
             limparString(pedaco);
         }
 
+    }
+
+    for (size_t i = 0; i <= posDeitado; i++) {
+        printf("=>>>%s\n", deitado[i]);
     }
 
     return 0;
