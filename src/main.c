@@ -16,11 +16,126 @@ Renato Donizeti da Silva Junior 20014023
 #include <string.h>
 #include <assert.h>
 #include <ctype.h>
-#include "./mods/main.c"
+// #include "./mods/main.c"
 #define T 1024
 
 int main()
 {
+
+    int operacaoImpossivel()
+    {
+        system("cls");
+        printf("- Não é possível concluir esta operação!");
+        system("pause");
+
+        return 0;
+    }
+
+    double** novaMatriz (unsigned int quantidade_de_linhas, unsigned int quantidade_de_colunas)
+    {
+        double** ret = (double**)malloc(quantidade_de_linhas*sizeof(double*));
+
+        unsigned int linha;
+
+        for (linha=0; linha<quantidade_de_linhas; linha++)
+        ret[linha] = (double*)malloc(quantidade_de_colunas*sizeof(double));
+
+        return ret;
+    }
+
+    void removerEspaco(char *str)
+    {
+
+        int count = 0;
+        for (int i = 0; str[i]; i++)
+            if (str[i] != ' ')
+                str[count++] = str[i];
+        str[count] = '\0';
+    }
+
+    int verificarNumero(char caracter)
+    {
+        if (caracter >= '0' && caracter <= '9' && caracter != '\0')
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    int tabela (char simbolo_empe, char simbolo_deitado)
+    {
+
+        int index_empe, index_deitado;
+
+        switch (simbolo_deitado) {
+            case '(':
+                index_deitado = 0;
+                break;
+            case '^':
+                index_deitado = 1;
+                break;
+            case '*':
+            case 'x':
+            case 'X':
+                index_deitado = 2;
+                break;
+            case '/':
+                index_deitado = 3;
+                break;
+            case '+':
+                index_deitado = 4;
+                break;
+            case '-':
+                index_deitado = 5;
+                break;
+            case ')':
+                index_deitado = 6;
+                break;
+        }
+
+        switch (simbolo_empe) {
+            case '(':
+                index_empe = 0;
+                break;
+            case '^':
+                index_empe = 1;
+                break;
+            case '*':
+            case 'x':
+            case 'X':
+                index_empe = 2;
+                break;
+            case '/':
+                index_empe = 3;
+                break;
+            case '+':
+                index_empe = 4;
+                break;
+            case '-':
+                index_empe = 5;
+                break;
+            case ')':
+                index_empe = 6;
+                break;
+        }
+
+        int tabeladesequencia[7][7] =  {{0,0,0,0,0,0,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,1,1,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,1,1,1}, {0,0,0,0,0,0,0}};
+        return tabeladesequencia[index_empe][index_deitado];
+        return 0;
+    }
+    void limparCaractere(char str)
+    {
+        str = '\0';
+    }
+    void limparString(char *str)
+    {
+        memset(str,0,sizeof(str));
+    }
+
+
 
     setlocale( LC_ALL, "" );
     system("COLOR F0");
@@ -45,7 +160,7 @@ int main()
     // c = "10+(2*3-4)^2/4+6*2";
 
 
-    for (size_t i = 0;(i <= expressao[i] != '\0'); i++)
+    for (size_t i = 0;(expressao[i] != '\0'); i++)
     {
         if(verificarNumero(expressao[i]) == 0)
         {   // Significa que não é número
@@ -64,6 +179,7 @@ int main()
             {
 
                 resultadoTabela = tabela(emPe[posEmPe][0], pedaco[0]); // Retorna 1 se verdadeiro ou 0 se falso
+
 
                 if(resultadoTabela == 0)
                 {
@@ -84,17 +200,23 @@ int main()
                         limparCaractere(emPe[posEmPe][0]);
                         posEmPe--;
                     }else{
-                        for(posEmPe;( tabela(emPe[posEmPe][0], pedaco[0]) == 1 &&  posEmPe >= -1); posEmPe--)
-                        {
+
+                        do {
                             if(posEmPe != -1){
                                 posDeitado++;
                                 strcpy(deitado[posDeitado], emPe[posEmPe]);
                                 limparCaractere(emPe[posEmPe][0]);
                             }
+                            posEmPe--;
+
+                        } while( tabela(emPe[posEmPe][0], pedaco[0]) == 1 &&  posEmPe >= -1);
+
+                        if(posEmPe <= -1){
+                            posEmPe = -1;
                         }
-                        printf("%s\n", emPe[posEmPe]);
                         posEmPe++;
                         strcpy(emPe[posEmPe], pedaco);
+                        // printf("caracter --> %s\n", pedaco);
                     }
                 }
             }else{
@@ -123,8 +245,20 @@ int main()
 
     }
 
-    for (size_t i = 0; i <= posDeitado; i++) {
-        printf("=>>>%s\n", deitado[i]);
+
+    for (posEmPe; posEmPe >=0; posEmPe--) {
+        posDeitado++;
+        strcpy(deitado[posDeitado], emPe[posEmPe]);
+        limparCaractere(emPe[posEmPe][0]);
+    }
+
+
+    // ------------------------------- Continuar daqui
+    // https://web.microsoftstream.com/video/d996d45e-2bcc-4fcc-90cf-54e914e7b536
+
+    // Exibe o vetor deitado
+    for (int i = 0; i <= posDeitado; i++) {
+        printf("=>>> %d ->%s\n", i, deitado[i]);
     }
 
     return 0;
