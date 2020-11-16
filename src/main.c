@@ -255,10 +255,30 @@ int main()
 
     // ------------------------------- Continuar daqui
     // https://web.microsoftstream.com/video/d996d45e-2bcc-4fcc-90cf-54e914e7b536
-
+    int num1;
+    int num2;
+    char oper;
+    for(int atual = 0; atual <= posDeitado; atual++)
+    {
+        if(verificarNumero(deitado[atual]) == 1)
+           {
+            posEmPe++;
+            strcpy(emPe[posEmPe], deitado[atual];
+           }
+         // Teria um else com a condição para os sinais
+    }
+     
     // Exibe o vetor deitado
-    for (int i = 0; i <= posDeitado; i++) {
+    for (int i = 0; i <= posDeitado; i++)
+      {
         printf("=>>> %d ->%s\n", i, deitado[i]);
+    }
+     //Teste para ver se o número foi para o emPe
+    for(int posEmPe = 0; posEmPe <= posDeitado; posEmPe++)
+    {
+     printf("%s ",emPe[posEmPe]);
+        
+    }  
     }
 
     return 0;
