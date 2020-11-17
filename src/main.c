@@ -8,7 +8,7 @@ Lucas Ament 20011615
 Renato Donizeti da Silva Junior 20014023
 
 */
-
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -16,11 +16,30 @@ Renato Donizeti da Silva Junior 20014023
 #include <string.h>
 #include <assert.h>
 #include <ctype.h>
+#include <stdbool.h>
+
 // #include "./mods/main.c"
 #define T 1024
 
 int main()
 {
+    int atoi(const char* str)
+    {
+        int num = 0;
+        int i = 0;
+        bool isNegetive = false;
+        if(str[i] == '-'){
+            isNegetive = true;
+            i++;
+        }
+        while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+        {
+            num = num * 10 + (str[i] - '0');
+            i++;
+        }
+        if(isNegetive) num = -1 * num;
+        return num;
+    }
 
     int operacaoImpossivel()
     {
@@ -141,10 +160,10 @@ int main()
     system("COLOR F0");
 
     // Entrada da expressão
-    char expressao[T] = "10+(2*3-4)^2/4+6*2";
-    // char expressao[T];
-    // printf("\n\n\t\tDigite a expressão = ");
-    // gets(expressao);
+    // char expressao[T] = "10+(2*3-4)^2/4+6*2";
+    char expressao[T];
+    printf("\n\n\t\tDigite a expressão = ");
+    gets(expressao);
 
     // Limpar espaços
     removerEspaco(expressao);
@@ -252,14 +271,52 @@ int main()
         limparCaractere(emPe[posEmPe][0]);
     }
 
+    int num1, num2;
+    char oper[1];
 
-    // ------------------------------- Continuar daqui
-    // https://web.microsoftstream.com/video/d996d45e-2bcc-4fcc-90cf-54e914e7b536
+    for (int atual = 0; atual <= posDeitado; atual++) {
 
-    // Exibe o vetor deitado
-    for (int i = 0; i <= posDeitado; i++) {
-        printf("=>>> %d ->%s\n", i, deitado[i]);
+        if (verificarNumero(deitado[atual][0]) == 1) // se for número
+        {
+            posEmPe++;
+            strcpy(emPe[posEmPe], deitado[atual]);
+        }
+        else
+        { // Se é número e deu certo a conversão
+            oper[0] = deitado[atual][0];
+            num2 = atoi(emPe[posEmPe]);
+            limparCaractere(emPe[posEmPe][0]);
+            posEmPe--;
+
+            num1 = atoi(emPe[posEmPe]);
+            limparCaractere(emPe[posEmPe][0]);
+            posEmPe--;
+
+            posEmPe++;
+
+            switch (oper[0]) {
+                case '+':
+                    sprintf(emPe[posEmPe], "%d", num1+num2);
+                    break;
+                case '-':
+                    sprintf(emPe[posEmPe], "%d", num1-num2);
+                    break;
+                case '*':
+                case 'x':
+                case 'X':
+                    sprintf(emPe[posEmPe], "%d", num1*num2);
+                    break;
+                case '/':
+                    sprintf(emPe[posEmPe], "%d", num1/num2);
+                    break;
+                case '^':
+                    sprintf(emPe[posEmPe], "%lf", pow(num1, num2));
+                    break;
+            }
+        }
     }
+
+    printf("[RESULTADO] ===>> %s\n", emPe[posEmPe]);
 
     return 0;
 }
