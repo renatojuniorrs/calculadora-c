@@ -1,6 +1,8 @@
 # Projeto Integrado B PUC Campinas
 Repositório Projeto Integrado B PUC Campinas 2º Trabalho
 
+Em anexo temos dois links para 2 vídeos que explicam, respectivamente, como TRANSMUTAR uma EXPRESSÃO CONVENCIONAL em uma EXPRESSÃO COM NOTAÇÃO POLONESA (pós-fixa) e como CALCULAR o valor de uma EXPRESSÃO COM NOTAÇÃO POLONESA (pós-fixa). Para assistir aos vídeos, devem se identificar com seu e-mail DA PUC-CAMPINAS, usando a senha que utiliza para o SITE DO  ALUNO.
+
 - Desenvolvido por Renato Donizeti da Silva Junior
 - Desenvolvido por Guilherme Araujo Alexandre
 - Desenvolvido por Lucas Ament.
